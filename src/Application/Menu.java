@@ -188,7 +188,7 @@ public class Menu {
 	//displays all movies with all of their information
 	//format still?
 	private void displayAllMovies() throws SQLException {
-		System.out.printf("%-22s %-8s %-11s %-22s %-22s %-18s %-13s %-20s \n", 
+		System.out.printf("%-22s %-8s %-11s %-22s %-22s %-18s %-17s %-20s \n", 
 				"Movie Title: ", "Length: ", "Released: ", "Director: ",
 				"Lead Actor: ", "Revenue: ", "Movie Genre: ", "Movie Rating: ");
 		String dash = "-".repeat(150);
@@ -199,7 +199,7 @@ public class Menu {
 		for ( Movie m : movies ) {
 			genreName = genreDao.getGenreNameById(m.getGenres());
 			ratingName = ratingDao.getRatingById(m.getRatings());
-			System.out.printf("%-22s %-8d %-11s %-22s %-22s %-18s %-13s %-20s \n",
+			System.out.printf("%-22s %-8d %-11s %-22s %-22s %-18s %-17s %-20s \n",
 					m.getMovieTitle(), m.getMovieLength(), m.getReleaseDate(),
 					m.getDirector(), m.getLeadActor(), m.getRevenue(),
 					genreName, ratingName);
