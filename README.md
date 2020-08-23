@@ -19,6 +19,10 @@ The Java program has five classes: Application, Menu, RunDao, DBConnection, and 
 * DBConnection handles all the initial connection between JDBC and the database. 
 * Runs class is used to create instances of a record in the database
 ## Screenshots
+
+### Console ouput - running application screenshots
+
+
 ### Application.java code 
 
 ![image](https://user-images.githubusercontent.com/66330433/90987699-efba4200-e55a-11ea-83c4-dff0fac12199.png)
@@ -61,7 +65,13 @@ The Java program has five classes: Application, Menu, RunDao, DBConnection, and 
 
 ![image](https://user-images.githubusercontent.com/66330433/90987915-b5ea3b00-e55c-11ea-84ec-684358bb1408.png)
 
+### Dao - MoviesDao.java
 
+![image](https://user-images.githubusercontent.com/66330433/90987950-02357b00-e55d-11ea-8b1e-17c8a15a546d.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90987966-18433b80-e55d-11ea-97f3-e118ed7f4750.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90987980-31e48300-e55d-11ea-91b3-8ba364fe4389.png)
 
 ## Technologies
 * mySQL 8
