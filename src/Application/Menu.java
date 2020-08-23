@@ -305,6 +305,8 @@ public class Menu {
 	}
 
 	private void deleteGenre() throws SQLException {
+		System.out.println("Here is the current list of genres: ");
+		displayAllGenres();
 		System.out.println("Enter the genre ID number you would like to delete: \n");
 		int genreIdDelete = scanner.nextInt();
 		genreDao.deleteGenre(genreIdDelete);
