@@ -13,8 +13,6 @@ import Entity.Movie;
 import Entity.Genre;
 import Entity.Rating;
 
-import Dao.MovieDao;
-
 public class Menu {
 
 	private GenreDao genreDao = new GenreDao();
@@ -131,7 +129,7 @@ public class Menu {
 		
 		System.out.println("Enter the id of the movie you would like to update: \n");
 		int movieId = intScanner.nextInt();
-		
+		try {
 		List<Movie> movies = movieDao.getMovieById(movieId);
 		for ( Movie m : movies ) {
 			String[] tempMovieVariables = {m.getMovieTitle(), Integer.toString(m.getMovieLength()),
@@ -165,12 +163,16 @@ public class Menu {
 						newValues.add(i, tempMovieVariables[i]);
 					}
 				}
-			}	
-		}
+			} //end for loop	
+		} //end outer for loop
 		movieDao.updateMovie(newValues.get(0), Integer.parseInt(newValues.get(1)), 
 				newValues.get(2), newValues.get(3), newValues.get(4), newValues.get(5), 
 				Integer.parseInt(newValues.get(6)), Integer.parseInt(newValues.get(7)), movieId);
-	}
+		} catch (Exception e){
+			System.out.println("That movie id number does not exist");
+		}
+		
+	} // end option 2
 	
 	
 	//Menu option 3 - Display All Movies 
