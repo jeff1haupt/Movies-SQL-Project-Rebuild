@@ -19,6 +19,7 @@ public class GenreDao {
 	private final String GET_GENRE_BY_ID_QUERY = "SELECT * FROM genre WHERE id = ?";
 	private final String CREATE_NEW_GENRE_QUERY = "INSERT INTO genre (genre_name) VALUES(?)";
 	private final String DELETE_GENRE_BY_ID_QUERY = "DELETE FROM genre WHERE id = ?";
+	private final String UPDATE_GENRE_BY_ID_QUERY = "UPDATE genre SET genre_name = ? WHERE id =?";
 	
 
 	public GenreDao() {
@@ -41,10 +42,15 @@ public class GenreDao {
 		ps.executeUpdate();
 	}
 	
-	public void updateGenre(int updateGenre, String updatedGenre) {
-		
-	}
+	public void updateGenre(int updateGenre, String updatedGenre) throws SQLException {
+		PreparedStatement ps = connection.prepareStatement(UPDATE_GENRE_BY_ID_QUERY);
+		ps.setString(updateGenre, updatedGenre);
+		int updateSuccess = ps.executeUpdate();
+		System.out.println("You have successfully updated " + updateSuccess + " genre.");
 
+
+	}
+		
 	public List<Genre> getAllGenre() throws SQLException {
 		ResultSet rs = connection.prepareStatement(GET_ALL_GENRES).executeQuery();
 		List<Genre> genres = new ArrayList<Genre>();
@@ -55,7 +61,7 @@ public class GenreDao {
 		}
 
 	private Genre populateGenres(int i, String string) {
-		// TODO Auto-generated method stub
+
 		return new Genre(i,string);
 	}
 
@@ -67,4 +73,11 @@ public class GenreDao {
 		String genreName = rs.getString(2);
 		return genreName;
 	}
+
+	public void deleteGenre(int genreIdDelete) throws SQLException{
+		PreparedStatement ps = connection.prepareStatement(DELETE_GENRE_BY_ID_QUERY);
+		ps.setInt(1, genreIdDelete);
+		ps.executeUpdate();
+	}
+	
 }

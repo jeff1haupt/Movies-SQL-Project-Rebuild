@@ -291,19 +291,23 @@ public class Menu {
 		genreDao.updateGenre(updateGenre, updatedGenre);
 	}
 
-	private void displayAllMoviesByGenre() throws SQLException {
+	private List<Genre> displayAllMoviesByGenre() throws SQLException {
 		List<Genre> moviesByGenre = genreDao.getAllGenre();
 		int counter = 1;
 		for(Genre m : moviesByGenre) {
-			System.out.println(" " + counter + ":  " + m);
+			System.out.println(" " + counter + ":  " + m.getGenreName());
+			counter++;
 		}
-		System.out.println("Please enter the Genre Id for the list of movies you would like to see: \n");
-		int genreId = scanner.nextInt();
+		//System.out.println("Please enter the Genre Id for the list of movies you would like to see: \n");
+		//int genreId = Integer.parseInt(scanner.nextLine());
+		return moviesByGenre;
 
 	}
 
-	private void deleteGenre() {
-
+	private void deleteGenre() throws SQLException {
+		System.out.println("Enter the genre ID number you would like to delete: \n");
+		int genreIdDelete = scanner.nextInt();
+		genreDao.deleteGenre(genreIdDelete);
 	}
 	
 	
