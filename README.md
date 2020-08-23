@@ -21,6 +21,32 @@ The Java program has five classes: Application, Menu, RunDao, DBConnection, and 
 ## Screenshots
 ### Application.java code 
 
+![image](https://user-images.githubusercontent.com/66330433/90987699-efba4200-e55a-11ea-83c4-dff0fac12199.png)
+
+### Menu.java code
+
+![image](https://user-images.githubusercontent.com/66330433/90987716-111b2e00-e55b-11ea-8737-bf9c2b9ee6c3.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90987743-30b25680-e55b-11ea-804f-814f72901f0c.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90987755-50497f00-e55b-11ea-97b4-c233bb60e6f5.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90987766-69eac680-e55b-11ea-8afb-9fb3bbcf06a8.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90987783-7ff88700-e55b-11ea-9dfc-4a900ac14d61.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90987792-97377480-e55b-11ea-8f1f-d1045b6c196a.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90987800-ad453500-e55b-11ea-8bb9-60dab892072d.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90987818-c51cb900-e55b-11ea-8183-79618c33f51c.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90987824-d8c81f80-e55b-11ea-8e80-a2e1680f9900.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90987831-f0070d00-e55b-11ea-8e15-824de9d84ae4.png)
+
+### Entities - Movie.java 
+
 
 ## Technologies
 * mySQL 8
