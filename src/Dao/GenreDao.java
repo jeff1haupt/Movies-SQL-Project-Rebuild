@@ -20,6 +20,7 @@ public class GenreDao {
 	private final String CREATE_NEW_GENRE_QUERY = "INSERT INTO genre (genre_name) VALUES(?)";
 	private final String DELETE_GENRE_BY_ID_QUERY = "DELETE FROM genre WHERE id = ?";
 	private final String UPDATE_GENRE_BY_ID_QUERY = "UPDATE genre SET genre_name = ? WHERE id =?";
+	private final String DISPLAY_ALL_MOVIE_BY_GENRE = "SELECT movie.genre_id, movie.movie_title from movie inner join genre on movie.genre_id = genre.id";
 	
 
 	public GenreDao() {
@@ -55,6 +56,17 @@ public class GenreDao {
 		List<Genre> genres = new ArrayList<Genre>();
 		while(rs.next()) {
 			genres.add(populateGenres(rs.getInt(1), rs.getString(2)));
+		}
+		return genres;
+		}
+
+	public List<Genre> displayAllMovieByGenre() throws SQLException{
+		ResultSet rs = connection.prepareStatement(DISPLAY_ALL_MOVIE_BY_GENRE).executeQuery();
+		List<Genre> genres = new ArrayList<Genre>();
+		while(rs.next()) {
+			
+			  genres.add(new Genre(rs.getInt(1), rs.getString(2)));
+
 		}
 		return genres;
 		}

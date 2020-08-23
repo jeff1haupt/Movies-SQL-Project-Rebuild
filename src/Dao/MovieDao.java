@@ -22,6 +22,7 @@ public class MovieDao {
 	private final String DELETE_MOVIE_BY_ID_QUERY = "DELETE FROM movie WHERE id = ?";
 	private final String GET_MOVIES_BY_RATING = "SELECT * FROM movie WHERE rating_id=?";
 	private final String DISPLAY_ALL_MOVIE_BY_ID = "SELECT * FROM movie WHERE id = ?";
+
 	
 	public MovieDao() {
 		connection = DBConnection.getConnection();

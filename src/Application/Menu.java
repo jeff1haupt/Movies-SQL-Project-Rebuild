@@ -36,7 +36,7 @@ public class Menu {
 			"Display all movies by rating",
 			"Create new rating",
 			"Delete a rating",
-			"Get Genre By ID",
+			"Show all Genre",
 			"Close App");
 	
 	public void start() throws SQLException {
@@ -72,6 +72,9 @@ public class Menu {
 				createNewRating();
 			} else if ( userSelection.equals("12") ) {
 				deleteRating();
+				
+			} else if ( userSelection.equals("0") ) {
+				displayAllGenre();
 			} else if ( userSelection.equals("0") ) {
 				closeApp();
 			} 
@@ -82,6 +85,8 @@ public class Menu {
 		} while (!userSelection.equals("0"));
 		
 	}
+
+	
 
 	private void displayMenu() {
 		
@@ -284,18 +289,27 @@ public class Menu {
 		String updatedGenre = scanner.nextLine();
 		genreDao.updateGenre(genreId, updatedGenre);
 	}
-
+//this method needs serious overhaul - inner join complexity
 	private List<Genre> displayAllMoviesByGenre() throws SQLException {
-		List<Genre> moviesByGenre = genreDao.getAllGenre();
-		int counter = 1;
-		for(Genre m : moviesByGenre) {
-			System.out.println(" " + counter + ":"+" id: " + m.getGenreId() +" Name: " + m.getGenreName());
-			counter++;
+		List<Genre> moviesByGenres = genreDao.displayAllMovieByGenre();
+		List<Movie> moviesList = movieDao.getMovie();
+		for(Genre g : moviesByGenres) {
+			for(Movie m : moviesList) {
+				System.out.println(g.getGenreName() +":"+" id: " + g.getGenreId() +" : " + m.getMovieTitle() + m.getGenres() );
+			}
 		}
-		//System.out.println("Please enter the Genre Id for the list of movies you would like to see: \n");
-		//int genreId = Integer.parseInt(scanner.nextLine());
-		return moviesByGenre;
-
+		return moviesByGenres;
+	}
+private List<Genre> displayAllGenre() throws SQLException {
+	List<Genre> moviesByGenre = genreDao.getAllGenre();
+	int counter = 1;
+	for(Genre m : moviesByGenre) {
+		System.out.println(" " + counter + ":"+" id: " + m.getGenreId() +" Name: " + m.getGenreName());
+		counter++;
+	}
+	//System.out.println("Please enter the Genre Id for the list of movies you would like to see: \n");
+	//int genreId = Integer.parseInt(scanner.nextLine());
+	return moviesByGenre;
 	}
 
 	private void deleteGenre() throws SQLException {
