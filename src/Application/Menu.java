@@ -61,7 +61,7 @@ public class Menu {
 			} else if ( userSelection.equals("6") ) {
 				updateGenre();
 			} else if ( userSelection.equals("7") ) {
-			//	displayAllMoviesByGenre();
+				displayAllMoviesByGenre();
 			} else if ( userSelection.equals("8") ) {
 				deleteGenre();
 			} else if ( userSelection.equals("9") ) {
@@ -73,7 +73,7 @@ public class Menu {
 			} else if ( userSelection.equals("12") ) {
 				deleteRating();
 			} else if ( userSelection.equals("13") ) {
-				displayAllGenre();
+				displayAllGenres();
 			} else if ( userSelection.equals("0") ) {
 				closeApp();
 			} 
@@ -207,6 +207,7 @@ public class Menu {
 		displayAllGenres();
 	}
 
+	//Menu option 6 - update genres 
 	private void updateGenre() throws SQLException {
 		//displayAllMoviesByGenre();
 
@@ -216,31 +217,28 @@ public class Menu {
 		String updatedGenre = scanner.nextLine();
 		genreDao.updateGenre(genreId, updatedGenre);
 	}
-//this method needs serious overhaul - inner join complexity 
-	/*
-	private List<Genre> displayAllMoviesByGenre() throws SQLException {
-		List<Genre> moviesByGenres = genreDao.displayAllMovieByGenre();
-		List<Movie> moviesList = movieDao.getMovie();
-		for(Genre g : moviesByGenres) {
-			for(Movie m : moviesList) {
-				System.out.println(g.getGenreName() +":"+" id: " + g.getGenreId() +" : " + m.getMovieTitle() + m.getGenres() );
-			}
+
+	// Menu Option 7 - Display Movies By Genre - Fixed 
+	private void displayAllMoviesByGenre() throws SQLException {
+		System.out.println("Enter the genre number below to see a list of movies for that genre: \n");
+		displayAllGenres();
+		
+		int genreId = intScanner.nextInt();
+		List<Movie> moviesByGenre = movieDao.displayAllMoviesByGenre(genreId);
+		String ratingName = "";
+		String genreName = genreDao.getGenreNameById(genreId);
+
+		System.out.println("Here is your list of movies under the genre '"+ genreName + "' \n\n");
+		printHeadingFormatting();
+		for ( Movie m : moviesByGenre ) {
+			ratingName = ratingDao.getRatingById(m.getRatings());
+			System.out.printf("%-22s %-8d %-11s %-22s %-22s %-18s %-17s %-20s \n",
+					m.getMovieTitle(), m.getMovieLength(), m.getReleaseDate(),
+					m.getDirector(), m.getLeadActor(), m.getRevenue(),
+					genreName, ratingName);
 		}
-		return moviesByGenres;
-	} */
-	
-	//
-	private List<Genre> displayAllGenre() throws SQLException {
-		List<Genre> moviesByGenre = genreDao.getAllGenre();
-		int counter = 1;
-		for(Genre m : moviesByGenre) {
-			System.out.println(" " + counter + ":"+" id: " + m.getGenreId() +" Name: " + m.getGenreName());
-			counter++;
-	}
-	//System.out.println("Please enter the Genre Id for the list of movies you would like to see: \n");
-	//int genreId = Integer.parseInt(scanner.nextLine());
-		return moviesByGenre;
-	}
+		System.out.println("\n\n");
+	} 
 	
 	//Menu option 8 - Delete Genre (only allowed if genre not in use)
 	private void deleteGenre() throws SQLException {
