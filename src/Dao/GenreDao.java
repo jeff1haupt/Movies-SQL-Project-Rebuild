@@ -20,7 +20,6 @@ public class GenreDao {
 	private final String CREATE_NEW_GENRE_QUERY = "INSERT INTO genre (genre_name) VALUES(?)";
 	private final String DELETE_GENRE_BY_ID_QUERY = "DELETE FROM genre WHERE id = ?";
 	private final String UPDATE_GENRE_BY_ID_QUERY = "UPDATE genre SET genre_name = ? WHERE id =?";
-	private final String DISPLAY_ALL_MOVIE_BY_GENRE = "SELECT movie.genre_id, movie.movie_title from movie inner join genre on movie.genre_id = genre.id";
 	
 
 	public GenreDao() {
@@ -60,6 +59,8 @@ public class GenreDao {
 		return genres;
 		}
 
+	//Moved to movieDao given the SQL Query is on the Movie table 
+	/*
 	public List<Genre> displayAllMovieByGenre() throws SQLException{
 		ResultSet rs = connection.prepareStatement(DISPLAY_ALL_MOVIE_BY_GENRE).executeQuery();
 		List<Genre> genres = new ArrayList<Genre>();
@@ -70,12 +71,13 @@ public class GenreDao {
 		}
 		return genres;
 		}
-
+	*/
 	private Genre populateGenres(int i, String string) {
 
 		return new Genre(i,string);
 	}
 
+	//Not a duplicate - just pulls out the name of the genre as a 'String'
 	public String getGenreNameById(int genres) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(GET_GENRE_BY_ID_QUERY);
 		ps.setInt(1, genres);
