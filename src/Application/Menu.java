@@ -72,8 +72,7 @@ public class Menu {
 				createNewRating();
 			} else if ( userSelection.equals("12") ) {
 				deleteRating();
-				
-			} else if ( userSelection.equals("0") ) {
+			} else if ( userSelection.equals("13") ) {
 				displayAllGenre();
 			} else if ( userSelection.equals("0") ) {
 				closeApp();
@@ -85,11 +84,9 @@ public class Menu {
 		} while (!userSelection.equals("0"));
 		
 	}
-
 	
-
+	//Method to display menu to the console
 	private void displayMenu() {
-		
 		System.out.println("Select an option: \n------------------------------------");
 		for (int i = 0; i < options.size(); i++) {
 			if ( i == options.size()-1 ) {
@@ -98,16 +95,9 @@ public class Menu {
 				System.out.println((i+1) + ") " + options.get(i));
 			}
 		}
-		
 	}
 	
-	// Need to finish and potential add more methods 
-	private void closeApp() {
-		System.out.println("\n\n---------------------------------------\n");
-		System.out.println("Thank you for using the application");
-		System.exit(0);
-	}
-	
+	// Menu option 1 - Create Movie 
 	private void createMovie() throws SQLException {
 		
 		System.out.println("Enter the movie title: \n");
@@ -130,7 +120,8 @@ public class Menu {
 		
 		movieDao.createMovie(movieTitle, movieLength, releaseDate, director, actor, moneyMade, genreId, ratingId);
 	}
-
+	
+	//Menu option 2 - Update Movie
 	private void updateMovie() throws SQLException {
 		
 		String[] termsToUpdate = {"title", "length", "release date", "director",
@@ -174,25 +165,17 @@ public class Menu {
 						newValues.add(i, tempMovieVariables[i]);
 					}
 				}
-			}
-			
-			
-		} // end for loop
-		
+			}	
+		}
 		movieDao.updateMovie(newValues.get(0), Integer.parseInt(newValues.get(1)), 
 				newValues.get(2), newValues.get(3), newValues.get(4), newValues.get(5), 
 				Integer.parseInt(newValues.get(6)), Integer.parseInt(newValues.get(7)), movieId);
-		
 	}
 	
-	//displays all movies with all of their information
-	//format still?
+	
+	//Menu option 3 - Display All Movies 
 	private void displayAllMovies() throws SQLException {
-		System.out.printf("%-22s %-8s %-11s %-22s %-22s %-18s %-17s %-20s \n", 
-				"Movie Title: ", "Length: ", "Released: ", "Director: ",
-				"Lead Actor: ", "Revenue: ", "Movie Genre: ", "Movie Rating: ");
-		String dash = "-".repeat(150);
-		System.out.println(dash);
+		printHeadingFormatting();
 		List<Movie> movies = movieDao.getMovie(); 
 		String genreName = "";
 		String ratingName = "";
@@ -203,12 +186,11 @@ public class Menu {
 					m.getMovieTitle(), m.getMovieLength(), m.getReleaseDate(),
 					m.getDirector(), m.getLeadActor(), m.getRevenue(),
 					genreName, ratingName);
-			
-			}
-		
-		
+		}
 	}
 
+
+	//Menu option 4 - Delete Movie
 	private void deleteMovie() throws SQLException {
 		// TODO Auto-generated method stub
 		System.out.println("Enter the movie ID number you would like to delete: \n");
@@ -216,7 +198,7 @@ public class Menu {
 		movieDao.deleteMovie(movieIdDelete);
 	}
 
-	// creates a new move genre. need to add list of genres when new genre is added
+	//Menu option 5 - Create Genre 
 	private void createGenre() throws SQLException {
 		System.out.print("Enter new genre: ");
 		String genreName = scanner.nextLine();                                                             
@@ -246,6 +228,8 @@ public class Menu {
 		}
 		return moviesByGenres;
 	} */
+	
+	//
 	private List<Genre> displayAllGenre() throws SQLException {
 		List<Genre> moviesByGenre = genreDao.getAllGenre();
 		int counter = 1;
@@ -257,7 +241,8 @@ public class Menu {
 	//int genreId = Integer.parseInt(scanner.nextLine());
 		return moviesByGenre;
 	}
-
+	
+	//Menu option 8 - Delete Genre (only allowed if genre not in use)
 	private void deleteGenre() throws SQLException {
 		System.out.println("Here is the current list of genres: ");
 		displayAllGenres();
@@ -276,7 +261,7 @@ public class Menu {
 		}
 	}
 	
-
+	//Menu option 9 - Update a current rating 
 	private void updateRating() throws SQLException {
 		System.out.println("Here are the current movie ratings: ");
 		displayAllRatings();
@@ -290,38 +275,59 @@ public class Menu {
 		System.out.println("\n\n");
 	}
 
+	//Menu option 10 - Display Movies by Rating 
 	private void displayAllMoviesByRating() throws SQLException {
 		System.out.println("Enter the rating number below to see a list of movies with that rating: \n");
 		displayAllRatings();
+		
 		int movieRating = intScanner.nextInt();
 		List<Movie> moviesByRating = movieDao.getMovieByRating(movieRating);
 		String ratingName = ratingDao.getRatingById(movieRating);
-		System.out.println("Here is your list of movies with a rating of '"+ ratingName + "'");
+		String genreName = "";
+		
+		System.out.println("Here is your list of movies with a rating of '"+ ratingName + "' \n\n");
+		printHeadingFormatting();
 		for ( Movie m : moviesByRating ) {
-			System.out.println(m.getMovieTitle() + " : " + m.getMovieLength() + " : " 
-					+ m.getReleaseDate() + " : " + m.getDirector() + " : " 
-					+ m.getLeadActor() + " : " + m.getRevenue() + " : " 
-					+ m.getGenres());
-			}
+			genreName = genreDao.getGenreNameById(m.getGenres());
+			System.out.printf("%-22s %-8d %-11s %-22s %-22s %-18s %-17s %-20s \n",
+					m.getMovieTitle(), m.getMovieLength(), m.getReleaseDate(),
+					m.getDirector(), m.getLeadActor(), m.getRevenue(),
+					genreName, ratingName);
+		}
 		System.out.println("\n\n");
 	}
 	
+	//Menu option 11 - Create a Rating
 	private void createNewRating() throws SQLException {
 		System.out.println("Here are the current ratings: ");
 		displayAllRatings();
 		System.out.println("Enter the new 'rating' you want to create: ");
 		String newRating = scanner.nextLine();
 		ratingDao.createNewRating(newRating);
+		System.out.println("Here is the updated ratings list: ");
+		displayAllRatings();
 	}
 
+	//Menu option 12 - Delete Rating 
 	private void deleteRating() throws SQLException {
 		System.out.println("Here are the current ratings: ");
 		displayAllRatings();
 		System.out.println("Enter the number for the 'rating' you want to delete: ");
 		int delete = intScanner.nextInt();
 		ratingDao.deleteARating(delete);
-		
+		System.out.println("Here is the updated ratings list: ");
+		displayAllRatings();		
 	} 
+	
+	//Menu option 0 - Terminate Console Application
+	private void closeApp() {
+		System.out.println("\n\n---------------------------------------\n");
+		System.out.println("Thank you for using the application");
+		System.exit(0);
+	}
+	
+	
+	//Methods designed to be used with various menu options above 
 	
 	private void displayAllGenres() throws SQLException {
 		List<Genre> genreOptions = genreDao.getAllGenre();
@@ -356,5 +362,15 @@ public class Menu {
 		for ( Rating rating : ratingOptions ) {
 			System.out.println( rating.getRatingId() + ": " + rating.getRatingScale());
 		}
+	}
+	
+	private void printHeadingFormatting() {
+		
+		System.out.printf("%-22s %-8s %-11s %-22s %-22s %-18s %-17s %-20s \n", 
+				"Movie Title: ", "Length: ", "Released: ", "Director: ",
+				"Lead Actor: ", "Revenue: ", "Movie Genre: ", "Movie Rating: ");
+		String dash = "-".repeat(150);
+		System.out.println(dash);
+		
 	}
 }
