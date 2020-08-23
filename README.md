@@ -47,6 +47,21 @@ The Java program has five classes: Application, Menu, RunDao, DBConnection, and 
 
 ### Entities - Movie.java 
 
+![image](https://user-images.githubusercontent.com/66330433/90987880-6ad02800-e55c-11ea-9a69-5f828f93ffb9.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90987887-7b809e00-e55c-11ea-8c70-7c37e2a896ce.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90987896-8affe700-e55c-11ea-8735-0dc28bb7ac78.png)
+
+### Entities - Genre.java
+
+![image](https://user-images.githubusercontent.com/66330433/90987907-a1a63e00-e55c-11ea-90fe-58c5aa0dbebd.png)
+
+### Entities - Ratings.java
+
+![image](https://user-images.githubusercontent.com/66330433/90987915-b5ea3b00-e55c-11ea-84ec-684358bb1408.png)
+
+
 
 ## Technologies
 * mySQL 8
