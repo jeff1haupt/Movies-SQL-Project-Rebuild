@@ -309,10 +309,20 @@ public class Menu {
 		displayAllGenres();
 		System.out.println("Enter the genre ID number you would like to delete: \n");
 		int genreIdDelete = scanner.nextInt();
-		genreDao.deleteGenre(genreIdDelete);
+		boolean isGenreExisting = checkGenreExists(genreIdDelete);
+		if (isGenreExisting) {
+			boolean isGenreInUse = genreInUse(genreIdDelete);
+			if ( !isGenreInUse ) {
+				genreDao.deleteGenre(genreIdDelete);
+			} else {
+				System.out.println("Sorry, that genre is still tied to movies in the database and cannot be deleted.");
+			}
+		} else {
+			System.out.println("Sorry, that genre does not exist.");
+		}
 	}
 	
-	
+
 	private void updateRating() throws SQLException {
 		System.out.println("Here are the current movie ratings: ");
 		displayAllRatings();
@@ -365,6 +375,26 @@ public class Menu {
 			System.out.println(genre.getGenreId() + ": " + genre.getGenreName());
 		}
 		
+	}
+	
+	private boolean checkGenreExists(int genreIdDelete) throws SQLException {
+		List<Genre> genreOptions = genreDao.getAllGenre();
+		for ( Genre genre : genreOptions ) {
+			if ( genre.getGenreId() == genreIdDelete) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	private boolean genreInUse(int genreIdDelete) throws SQLException {
+		List<Movie> movies = movieDao.getMovie();
+		for ( Movie movie : movies ) {
+			if ( movie.getGenres() == genreIdDelete) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	private void displayAllRatings() throws SQLException {
