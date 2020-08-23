@@ -9,18 +9,33 @@
 * [Technologies](#technologies)
 
 ## General Info
-The purpose of this homework assignment is to create a menu driven application that utilizes JDBC and utilizes Java to execute CRUD commands on a database.  To start the project I created a database with one table, run_training.  Run_training has four columns, an id, run_date, run_distance, and total_time_minutes. 
+The purpose of this homework assignment was to work as a group to create a menu driven application that utilizes JDBC and utilizes Java to execute CRUD commands on a database.  Initially, we divided things up randomly, but then that started to not necessarily create great workflow.  Clair handled the initial DDL creation, worked on the MoviesDao, and created the entities. Zach developed a rather large database initially, but we ended up having to make changes and are putting the implimentation of that database on hold for now.  Zach handled GenreDao and related menu applications.  Jeff handled RatingsDao and the related menu applications.  Each of us took turns troubleshooting different problems that the code was handling as well as working on cleaning up the menu and some of the Git and GitHub related problems we were having.  
 
-The Java program has five classes: Application, Menu, RunDao, DBConnection, and Runs.
+The Java program has three different Packages set up: Daos, Entities, and Application
 
-* Applications is the class containing the "main" method and is rather simple as it creates a new instance of the Menu class and then runs the .start() method on the Menu class. 
-* Menu creates the menu using the printMenu() method. Depending on the users selection a variety of methods can be run at this point. The first is the displayRuns() method.  The displayRuns() method connects to the RunDao to display the entire table in run_training. The displayRun() method requires the user to enter which record they would like to see and then only one record is returned. The addRun() method allows the user to enter the date of their run, the distance of the run, and the time of the run.  This data is then inserted into the database.  Finally, the deleteRun() method deletes a user-specified row in the table.  
-* RunDao handles the Queries that come through the Menu methods and returns or prints the results depending on the method selected
-* DBConnection handles all the initial connection between JDBC and the database. 
-* Runs class is used to create instances of a record in the database
+The Daos Package has the following classes: DBConnection, GenreDao, MovieDao, and RatingsDao
+
+The Entity Package contains the following files: Movie.java, Genre.java, and Rating.java
+
+Finally, the Application package contains: Application and Menu.  Menu is where most of the Methods in this application are written and calls to the Daos and Entities get made.  
+
+We did use external Database storage for our movies database.  
+
 ## Screenshots
 
 ### Console ouput - running application screenshots
+
+![image](https://user-images.githubusercontent.com/66330433/90988037-97387400-e55d-11ea-90a0-09e7399da7db.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90988058-cd75f380-e55d-11ea-9ba0-1577aa28581b.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90988072-ea122b80-e55d-11ea-9340-3929d68310e3.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90988094-1463e900-e55e-11ea-85c3-d7e251368b96.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90988107-2e9dc700-e55e-11ea-963c-c142c7ef9aa2.png)
+
+![image](https://user-images.githubusercontent.com/66330433/90988115-4c6b2c00-e55e-11ea-8b93-7b5637c932f3.png)
 
 
 ### Application.java code 
