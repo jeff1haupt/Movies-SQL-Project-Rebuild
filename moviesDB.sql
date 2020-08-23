@@ -31,7 +31,7 @@ revenue_made VARCHAR(50),
 genre_id int(11) not null,
 rating_id int(11) not null,
 PRIMARY KEY (id),
-FOREIGN KEY (genre_id) references genre(id)
+FOREIGN KEY (genre_id) references genre(id),
 FOREIGN KEY (rating_id) references rating(id)
 );
 

@@ -11,11 +11,11 @@ import Entity.Genre;
 
 
 public class GenreDao {
-	private MovieDao MovieDao;
-	private RatingDao RatingDoa;
+	//private MovieDao MovieDao;
+	//private RatingDao RatingDoa;
 	private Connection connection;
 	private final String GET_ALL_GENRES = "SELECT * FROM genre order by id";
-	private final String GET_GENRE_QUERY = "SELECT * FROM genre";
+	//private final String GET_GENRE_QUERY = "SELECT * FROM genre";
 	private final String GET_GENRE_BY_ID_QUERY = "SELECT * FROM genre WHERE id = ?";
 	private final String CREATE_NEW_GENRE_QUERY = "INSERT INTO genre (genre_name) VALUES(?)";
 	private final String DELETE_GENRE_BY_ID_QUERY = "DELETE FROM genre WHERE id = ?";
@@ -24,7 +24,6 @@ public class GenreDao {
 
 	public GenreDao() {
 		connection = DBConnection.getConnection();
-		MovieDao = new MovieDao();
 	}
 	
 	public Genre getGenreById(int id) throws SQLException{
@@ -42,13 +41,13 @@ public class GenreDao {
 		ps.executeUpdate();
 	}
 	
-	public void updateGenre(int updateGenre, String updatedGenre) throws SQLException {
+	public void updateGenre(int genreId, String updatedGenre) throws SQLException {
 		PreparedStatement ps = connection.prepareStatement(UPDATE_GENRE_BY_ID_QUERY);
-		ps.setString(updateGenre, updatedGenre);
-		int updateSuccess = ps.executeUpdate();
-		System.out.println("You have successfully updated " + updateSuccess + " genre.");
-
-
+		ps.setString(1,  updatedGenre);
+		ps.setInt(2, genreId);
+		System.out.println(ps.toString());
+		ps.executeUpdate();
+		System.out.println("You have successfully updated!");
 	}
 		
 	public List<Genre> getAllGenre() throws SQLException {

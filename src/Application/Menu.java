@@ -72,8 +72,6 @@ public class Menu {
 				createNewRating();
 			} else if ( userSelection.equals("12") ) {
 				deleteRating();
-			} else if ( userSelection.equals("12") ) {
-				getGenreByIdMenu();
 			} else if ( userSelection.equals("0") ) {
 				closeApp();
 			} 
@@ -83,12 +81,6 @@ public class Menu {
 			
 		} while (!userSelection.equals("0"));
 		
-	}
-
-	private void getGenreByIdMenu() throws SQLException {
-		System.out.println("Enter the genre id: \n");
-		int id = scanner.nextInt();
-		genreDao.getGenreById(id);
 	}
 
 	private void displayMenu() {
@@ -284,18 +276,20 @@ public class Menu {
 	}
 
 	private void updateGenre() throws SQLException {
+		displayAllMoviesByGenre();
+
 		System.out.println("Enter the id for the genre you would like to update: \n");
-		int updateGenre = scanner.nextInt();
+		int genreId = Integer.parseInt(scanner.nextLine());
 		System.out.println("Please enter the updated genre: ");
 		String updatedGenre = scanner.nextLine();
-		genreDao.updateGenre(updateGenre, updatedGenre);
+		genreDao.updateGenre(genreId, updatedGenre);
 	}
 
 	private List<Genre> displayAllMoviesByGenre() throws SQLException {
 		List<Genre> moviesByGenre = genreDao.getAllGenre();
 		int counter = 1;
 		for(Genre m : moviesByGenre) {
-			System.out.println(" " + counter + ":  " + m.getGenreName());
+			System.out.println(" " + counter + ":"+" id: " + m.getGenreId() +" Name: " + m.getGenreName());
 			counter++;
 		}
 		//System.out.println("Please enter the Genre Id for the list of movies you would like to see: \n");
